@@ -21,5 +21,10 @@ namespace FinanceManager
             var amount = Augend.Reduce(bank, to).Amount + Addend.Reduce(bank, to).Amount;
             return new Money(amount, to);
         }
+
+        public IExpression Times(int multiplier)
+        {
+            return new Sum(Augend.Times(multiplier),Addend.Times(multiplier));
+        }
     }
 }

@@ -166,4 +166,27 @@ namespace FinanceManager
         private static IExpression fiveBucks;
         private static Money result;
     }
+
+    public class When_Multiplying_Sum
+    {
+        Establish context = () =>
+        {
+            fiveBucks = Money.Dollar(5);
+            tenFrancs = Money.Franc(10);
+            bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+        };
+
+        Because of = () =>
+        {
+            var sum = new Sum(fiveBucks, tenFrancs).Times(2);
+            result = bank.Reduce(sum, "USD");
+        };
+
+        It should_ = () => { result.ShouldEqual(Money.Dollar(20)); };
+        private static IExpression tenFrancs;
+        private static IExpression fiveBucks;
+        private static Bank bank;
+        private static Money result;
+    }
 }
